@@ -68,11 +68,13 @@ export default function App() {
       .then((data) => {
         setData(data);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchStatus, matchType]);
 
+  
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
+      <h1 className="text-3xl font-bold underline">Hello CodeSandbox</h1>
 
       <MatchType matchType={matchType} setMatchType={setMatchType} />
       {matchType}
