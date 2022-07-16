@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import MatchStatus from "./MatchStatus";
 import MatchType from "./MatchType";
 import MatchCard from "./MatchCard";
-
+import SeriesName from "./SeriesName.jsx"
 export default function App() {
   const [state, setState] = useState([
     {
+      seriesID:"",
       matchStatus: "",
       matchNumber: "",
       venue: "",
@@ -23,6 +24,7 @@ export default function App() {
 
   const QUERY = `query ($matchType: String, $matchStatus:String){
     schedule(type: $matchType, status: $matchStatus, page: 1) {
+      seriesID
       matchStatus
       matchNumber
       venue
@@ -37,6 +39,7 @@ export default function App() {
   const setResponse = (data) => {
     const response = data.map((obj) => {
       return {
+        seriesID:obj.seriesID,
         matchStatus: obj.matchStatus,
         matchNumber: obj.matchNumber,
         venue: obj.venue,
@@ -68,33 +71,38 @@ export default function App() {
       .then((data) => {
         setData(data);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchStatus, matchType]);
 
-  
+
   return (
-    <div className="App">
-      <h1 className="text-3xl font-bold underline">Hello CodeSandbox</h1>
-
-      <MatchType matchType={matchType} setMatchType={setMatchType} />
-      {matchType}
-      <br />
-
+    <div className="bg-slate-800 min-h-screen">
+      <h1 className="text-2xl font-bold text-white pt-4 pb-4 pl-4">Schedule</h1>
       <MatchStatus status={matchStatus} setMatchStatus={setMatchStatus} />
-      {matchStatus}
       <br />
+      <MatchType matchType={matchType} setMatchType={setMatchType} />
+      <br />
+      
 
-      {state.map((data) => (
-        <MatchCard
-          //seriesName={data.seriesName}
-          matchType={data.matchType}
-          matchStatus={data.matchStatus}
-          venue={data.venue}
-          homeTeamName={data.homeTeamName}
-          awayTeamName={data.awayTeamName}
-          matchdate={data.matchdate}
-        />
-      ))}
+        <div className="flex flex-wrap">
+        {state.map((data,index) =>{ 
+          
+          return(
+            <div className="flex">
+          
+          <MatchCard
+            //seriesName={data.seriesName}
+            matchType={data.matchType}
+            matchStatus={data.matchStatus}
+            venue={data.venue}
+            homeTeamName={data.homeTeamName}
+            awayTeamName={data.awayTeamName}
+            matchdate={data.matchdate}
+          />
+          </div>
+        )})}
+        </div>
+    
     </div>
   );
 }

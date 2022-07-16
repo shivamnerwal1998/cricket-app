@@ -18,11 +18,12 @@ export default function MatchType({ matchType, setMatchType }) {
   };
 
   return (
-    <div>
-      <h2>type</h2>
-      <button onClick={setAll}>All</button>
-      <button onClick={setInternational}>International</button>
-      <button onClick={setDomestic}>Domestic</button>
+    <div className="flex mb-10 justify-around">
+    <div className="flex text-white max-w-fit gap-10 ">
+      <button onClick={setAll}>ALL</button>
+      <button onClick={setInternational}>INTERNATIONAL</button>
+      <button onClick={setDomestic}>DOMESTIC</button>
+    </div>
     </div>
   );
 }

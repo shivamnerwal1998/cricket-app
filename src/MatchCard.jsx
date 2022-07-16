@@ -7,7 +7,7 @@ export default function MatchCard({
 }) {
   return (
     <>
-      <div>
+      <div className="text-white">
         <div>{matchStatus}</div>
         <div>{venue}</div>
         <div>{homeTeamName}</div>

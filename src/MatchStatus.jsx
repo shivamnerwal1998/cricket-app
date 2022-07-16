@@ -18,11 +18,10 @@ export default function MatchStatus({ matchStatus, setMatchStatus }) {
   };
 
   return (
-    <div>
-      <h2>status</h2>
-      <button onClick={setLive}>live</button>
-      <button onClick={setUpcomming}>upcomming</button>
-      <button onClick={setCompleted}>completed</button>
+    <div className="flex text-white justify-around">
+      <button onClick={setUpcomming}>Upcomming</button>
+      <button onClick={setLive}>Live</button>
+      <button onClick={setCompleted}>Results</button>
     </div>
   );
 }
