@@ -1,27 +1,33 @@
-export default function MatchStatus({ matchStatus, setMatchStatus }) {
+export default function MatchStatus({ status, setMatchStatus }) {
   const setLive = () => {
-    if (matchStatus !== "live") {
+    if (status !== "live") {
       setMatchStatus("live");
     }
   };
 
   const setUpcomming = () => {
-    if (matchStatus !== "upcomming") {
+    if (status !== "upcomming") {
       setMatchStatus("upcomming");
     }
   };
 
   const setCompleted = () => {
-    if (matchStatus !== "completed") {
+    if (status !== "completed") {
       setMatchStatus("completed");
     }
   };
 
   return (
-    <div className="flex text-white justify-around">
-      <button onClick={setUpcomming}>Upcomming</button>
-      <button onClick={setLive}>Live</button>
-      <button onClick={setCompleted}>Results</button>
+    <div className="flex z-2 text-white">
+      <div  className={`border-b-2 grow flex justify-center	 	${status === "upcomming" && "border-b-2 border-indigo-300 text-indigo-300"} ` }>
+      <button className={ " "	 } onClick={setUpcomming}>Upcomming</button>
+      </div>
+      <div className={`border-b-2 flex justify-center grow ${status === "live" && "border-indigo-300 text-indigo-300	"}`}>
+      <button className={ ` `	 } onClick={setLive}>Live</button>
+      </div>
+      <div className={`border-b-2 grow flex justify-center 	${status === "completed" && " border-indigo-300 text-indigo-300	"}`}>
+      <button className={ `	${status === "completed" && " border-indigo-300 text-indigo-300	"} `	 } onClick={setCompleted}>Results</button>
+      </div>
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import MatchStatus from "./MatchStatus";
 import MatchType from "./MatchType";
 import MatchCard from "./MatchCard";
-import SeriesName from "./SeriesName.jsx"
 export default function App() {
   const [state, setState] = useState([
     {
@@ -20,6 +19,7 @@ export default function App() {
 
   const [matchStatus, setMatchStatus] = useState("upcomming");
   const [matchType, setMatchType] = useState("all");
+  // const [showName, setShowName] = useState(false);
   const VARIABLES = { matchType: matchType, matchStatus: matchStatus };
 
   const QUERY = `query ($matchType: String, $matchStatus:String){
@@ -74,6 +74,9 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchStatus, matchType]);
 
+ 
+
+
 
   return (
     <div className="bg-slate-800 min-h-screen">
@@ -84,12 +87,16 @@ export default function App() {
       <br />
       
 
-        <div className="flex flex-wrap">
+        <div className="grid justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3	 align-items: center min-w-fit p-6">
         {state.map((data,index) =>{ 
           
-          return(
-            <div className="flex">
           
+          return(
+            <div className="flex flex-col justify-center align: center gap-5 p-2 border-8 border-gray-300	">
+            
+          <div className="text-white mr-4" >
+        {data.seriesName}
+        </div>
           <MatchCard
             //seriesName={data.seriesName}
             matchType={data.matchType}
@@ -99,6 +106,7 @@ export default function App() {
             awayTeamName={data.awayTeamName}
             matchdate={data.matchdate}
           />
+          
           </div>
         )})}
         </div>

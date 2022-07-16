@@ -1,3 +1,3 @@
-export default function SeriesName({}){
-  return(<div>seriesName</div>)
+export default function SeriesName({seriesName}){
+  return(<div className="text-white"> {seriesName}</div>)
 }
