@@ -33,6 +33,10 @@ export default function App() {
       homeTeamName
       matchType
       awayTeamName
+      teamsWinProbability {
+        homeTeamPercentage
+        awayTeamPercentage
+      }
     }
   }`;
 
@@ -47,7 +51,8 @@ export default function App() {
         matchdate: obj.matchdate,
         homeTeamName: obj.homeTeamName,
         matchType: obj.matchType,
-        awayTeamName: obj.awayTeamName
+        awayTeamName: obj.awayTeamName,
+        teamsWinProbability:obj.teamsWinProbability
       };
     });
     setState(response);
@@ -98,7 +103,6 @@ export default function App() {
         {data.seriesName}
         </div>
           <MatchCard
-            //seriesName={data.seriesName}
             matchType={data.matchType}
             matchNumber={data.matchNumber}
             matchStatus={data.matchStatus}
@@ -106,6 +110,7 @@ export default function App() {
             homeTeamName={data.homeTeamName}
             awayTeamName={data.awayTeamName}
             matchDate={data.matchdate}
+            teamsWinProbablity={data.teamsWinProbability}
           />
           
           </div>

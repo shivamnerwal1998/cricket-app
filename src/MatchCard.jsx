@@ -7,8 +7,14 @@ export default function MatchCard({
   venue,
   homeTeamName,
   awayTeamName,
-  matchDate
+  matchDate,
+  teamsWinProbablity
 }) {
+
+
+  const homeTeamWinningPercentage = teamsWinProbablity?.homeTeamPercentage;
+  const awayTeamWinningPercentage = teamsWinProbablity?.awayTeamPercentage;
+
   return (
     <>
       <div className="text-white flex flex-col p-4 gap-y-4 rounded-lg bg-slate-700	">
@@ -35,8 +41,26 @@ export default function MatchCard({
         <div className="flex justify-center align-middle p-4 bg-slate-800 rounded-sm">
           <div>{matchDate}</div>
         </div>
+        <div className="flex-row">
+        <div className="w-full bg-gray-200 h-2 rounded-lg">
+          {/* style tag is used only to set the width in % value*/}
+          <div
+            className="bg-green-500 h-2 rounded-lg"
+            style={{
+              width: `${homeTeamWinningPercentage > awayTeamWinningPercentage ?
+                homeTeamWinningPercentage : awayTeamWinningPercentage}%`
+            }}
+          >
+          </div>
+
+        </div>
       </div>
-      <br />
+        <div className="flex justify-between">
+        <div className="flex justify-center align-middle"><p>.</p> {homeTeamName} <p>({homeTeamWinningPercentage}%)</p></div> 
+        <div className="flex justify-center align-middle"><p className="">.</p>{awayTeamName}({awayTeamWinningPercentage}%)</div>
+        </div>
+      </div>
+     
       <br />
     </>
   );
