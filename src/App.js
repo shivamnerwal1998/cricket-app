@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import MatchStatus from "./MatchStatus";
 import MatchType from "./MatchType";
 import MatchCard from "./MatchCard";
+
+
+
 export default function App() {
+
   const [state, setState] = useState([
     {
       seriesID: "",
@@ -19,27 +23,31 @@ export default function App() {
 
   const [matchStatus, setMatchStatus] = useState("upcomming");
   const [matchType, setMatchType] = useState("all");
-  // const [showName, setShowName] = useState(false);
+
+  /* variables to be used in query the state of matchType
+   and matchStatus could be changed by user */
   const VARIABLES = { matchType: matchType, matchStatus: matchStatus };
 
+  /* query to fetch data  */
   const QUERY = `query ($matchType: String, $matchStatus:String){
-    schedule(type: $matchType, status: $matchStatus, page: 1) {
-      seriesID
-      matchStatus
-      matchNumber
-      venue
-      seriesName
-      matchdate
-      homeTeamName
-      matchType
-      awayTeamName
-      teamsWinProbability {
-        homeTeamPercentage
-        awayTeamPercentage
-      }
-    }
-  }`;
+                  schedule(type: $matchType, status: $matchStatus, page: 1) {
+                    seriesID
+                    matchStatus
+                    matchNumber
+                    venue
+                    seriesName
+                    matchdate
+                    homeTeamName
+                    matchType
+                    awayTeamName
+                    teamsWinProbability {
+                      homeTeamPercentage
+                      awayTeamPercentage
+                    }
+                  }
+                }`;
 
+  /* Functionn to set state from the response comming from API */
   const setResponse = (data) => {
     const response = data.map((obj) => {
       return {
@@ -58,30 +66,27 @@ export default function App() {
     setState(response);
   };
 
-  const setData = (data) => {
-    const response = data?.data?.schedule;
-    setResponse(response);
-  };
+  /* fetching the data from API using match status and match type as dependencies in use effect */
 
   useEffect(() => {
-    fetch("https://api.devcdc.com/cricket", {
-      method: "Post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: QUERY,
-        variables: VARIABLES
+    fetch("https://api.devcdc.com/cricket",
+      {
+        method: "Post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: QUERY,
+          variables: VARIABLES
+        })
       })
-    })
       .then((response) => response.json())
       .then((data) => {
-        setData(data);
-      });
+        const response = data?.data?.schedule;
+        setResponse(response);
+      })
+      .catch(error => { console.log(error) })
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchStatus, matchType]);
-
-
-
-
 
   return (
     <div className="bg-slate-800 min-h-screen">
@@ -90,32 +95,35 @@ export default function App() {
       <br />
       <MatchType matchType={matchType} setMatchType={setMatchType} />
       <br />
+      <div
+        className="grid justify-center sm:grid-cols-1 
+                   md:grid-cols-2 lg:grid-cols-3	
+                  align-items: center min-w-fit p-2 
+                  sm:p-6"
+      >
+        {state.map((data, index) => (
+          <div className="flex flex-col 
+              justify-center align: center
+              gap-5 p-2"
+          >
 
-
-      <div className="grid justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3	 align-items: center min-w-fit p-2 sm:p-6">
-        {state.map((data, index) => {
-
-
-          return (
-            <div className="flex flex-col justify-center align: center gap-5 p-2">
-
-              <div className="text-white bg-slate-700 p-4 rounded-lg " >
-                {data.seriesName}
-              </div>
-
-              <MatchCard
-                matchType={data.matchType}
-                matchNumber={data.matchNumber}
-                matchStatus={data.matchStatus}
-                venue={data.venue}
-                homeTeamName={data.homeTeamName}
-                awayTeamName={data.awayTeamName}
-                matchDate={data.matchdate}
-                teamsWinProbablity={data.teamsWinProbability}
-              />
+            <div className="text-white bg-slate-700 p-4 rounded-lg " >
+              {data.seriesName}
             </div>
-          )
-        })}
+
+            <MatchCard
+              matchType={data.matchType}
+              matchNumber={data.matchNumber}
+              matchStatus={data.matchStatus}
+              venue={data.venue}
+              homeTeamName={data.homeTeamName}
+              awayTeamName={data.awayTeamName}
+              matchDate={data.matchdate}
+              teamsWinProbablity={data.teamsWinProbability}
+            />
+          </div>
+        )
+        )}
       </div>
 
     </div>
