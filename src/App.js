@@ -5,7 +5,7 @@ import MatchCard from "./MatchCard";
 export default function App() {
   const [state, setState] = useState([
     {
-      seriesID:"",
+      seriesID: "",
       matchStatus: "",
       matchNumber: "",
       venue: "",
@@ -43,7 +43,7 @@ export default function App() {
   const setResponse = (data) => {
     const response = data.map((obj) => {
       return {
-        seriesID:obj.seriesID,
+        seriesID: obj.seriesID,
         matchStatus: obj.matchStatus,
         matchNumber: obj.matchNumber,
         venue: obj.venue,
@@ -52,7 +52,7 @@ export default function App() {
         homeTeamName: obj.homeTeamName,
         matchType: obj.matchType,
         awayTeamName: obj.awayTeamName,
-        teamsWinProbability:obj.teamsWinProbability
+        teamsWinProbability: obj.teamsWinProbability
       };
     });
     setState(response);
@@ -79,7 +79,7 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchStatus, matchType]);
 
- 
+
 
 
 
@@ -90,33 +90,34 @@ export default function App() {
       <br />
       <MatchType matchType={matchType} setMatchType={setMatchType} />
       <br />
-      
 
-        <div className="grid justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3	 align-items: center min-w-fit p-2 sm:p-6">
-        {state.map((data,index) =>{ 
-          
-          
-          return(
+
+      <div className="grid justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3	 align-items: center min-w-fit p-2 sm:p-6">
+        {state.map((data, index) => {
+
+
+          return (
             <div className="flex flex-col justify-center align: center gap-5 p-2">
-            
-          <div className="text-white mr-4" >
-        {data.seriesName}
-        </div>
-          <MatchCard
-            matchType={data.matchType}
-            matchNumber={data.matchNumber}
-            matchStatus={data.matchStatus}
-            venue={data.venue}
-            homeTeamName={data.homeTeamName}
-            awayTeamName={data.awayTeamName}
-            matchDate={data.matchdate}
-            teamsWinProbablity={data.teamsWinProbability}
-          />
-          
-          </div>
-        )})}
-        </div>
-    
+
+              <div className="text-white bg-slate-700 p-4 rounded-lg " >
+                {data.seriesName}
+              </div>
+
+              <MatchCard
+                matchType={data.matchType}
+                matchNumber={data.matchNumber}
+                matchStatus={data.matchStatus}
+                venue={data.venue}
+                homeTeamName={data.homeTeamName}
+                awayTeamName={data.awayTeamName}
+                matchDate={data.matchdate}
+                teamsWinProbablity={data.teamsWinProbability}
+              />
+            </div>
+          )
+        })}
+      </div>
+
     </div>
   );
 }
