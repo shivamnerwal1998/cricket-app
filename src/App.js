@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import MatchStatus from "./components/MatchStatus";
 import MatchType from "./components/MatchType";
 import MatchCard from "./components/MatchCard.jsx";
+import SeriesName from "./components/SeriesName";
 
 export default function App() {
 
@@ -22,8 +23,8 @@ export default function App() {
   const [matchStatus, setMatchStatus] = useState("upcomming");
   const [matchType, setMatchType] = useState("all");
 
-  const API = "https://api.devcdc.com/cricket" 
-  ;
+  const API = "https://api.devcdc.com/cricket";
+
   /* query to fetch data  */
   const QUERY = `query ($matchType: String, $matchStatus:String){
                   schedule(type: $matchType, status: $matchStatus, page: 1) {
@@ -67,7 +68,7 @@ export default function App() {
   };
 
   /* fetching the data from API using match status and match type as dependencies in use effect */
-  
+
   useEffect(() => {
     fetch(API,
       {
@@ -102,15 +103,13 @@ export default function App() {
                   sm:p-6"
       >
         {matchSchedule.map((data, index) => (
+
           <div className="flex flex-col 
               justify-center align: center
               gap-5 p-2"
           >
 
-            <div className="text-white bg-slate-700 p-4 rounded-lg " >
-              {data.seriesName}
-            </div>
-
+           <SeriesName seriesName={data.seriesName}/>
             <MatchCard
               matchType={data.matchType}
               matchNumber={data.matchNumber}
