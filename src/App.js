@@ -87,7 +87,7 @@ export default function App() {
       <br />
       
 
-        <div className="grid justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3	 align-items: center min-w-fit p-6">
+        <div className="grid justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3	 align-items: center min-w-fit p-2 sm:p-6">
         {state.map((data,index) =>{ 
           
           
@@ -100,6 +100,7 @@ export default function App() {
           <MatchCard
             //seriesName={data.seriesName}
             matchType={data.matchType}
+            matchNumber={data.matchNumber}
             matchStatus={data.matchStatus}
             venue={data.venue}
             homeTeamName={data.homeTeamName}
