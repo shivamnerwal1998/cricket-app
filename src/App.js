@@ -92,7 +92,7 @@ export default function App() {
           
           
           return(
-            <div className="flex flex-col justify-center align: center gap-5 p-2 border-8 border-gray-300	">
+            <div className="flex flex-col justify-center align: center gap-5 p-2">
             
           <div className="text-white mr-4" >
         {data.seriesName}
@@ -104,7 +104,7 @@ export default function App() {
             venue={data.venue}
             homeTeamName={data.homeTeamName}
             awayTeamName={data.awayTeamName}
-            matchdate={data.matchdate}
+            matchDate={data.matchdate}
           />
           
           </div>
