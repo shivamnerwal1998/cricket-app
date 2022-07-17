@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import MatchStatus from "./MatchStatus";
-import MatchType from "./MatchType";
-import MatchCard from "./MatchCard";
-
-
+import MatchStatus from "./components/MatchStatus";
+import MatchType from "./components/MatchType";
+import MatchCard from "./components/MatchCard.jsx";
 
 export default function App() {
 
-  const [state, setState] = useState([
+  const [matchSchedule, setMatchSchedule] = useState([
     {
       seriesID: "",
       matchStatus: "",
@@ -24,10 +22,8 @@ export default function App() {
   const [matchStatus, setMatchStatus] = useState("upcomming");
   const [matchType, setMatchType] = useState("all");
 
-  /* variables to be used in query the state of matchType
-   and matchStatus could be changed by user */
-  const VARIABLES = { matchType: matchType, matchStatus: matchStatus };
-
+  const API = "https://api.devcdc.com/cricket" 
+  ;
   /* query to fetch data  */
   const QUERY = `query ($matchType: String, $matchStatus:String){
                   schedule(type: $matchType, status: $matchStatus, page: 1) {
@@ -47,6 +43,10 @@ export default function App() {
                   }
                 }`;
 
+  /* variables to be used in query the state of matchType
+   and matchStatus could be changed by user */
+   const VARIABLES = { matchType: matchType, matchStatus: matchStatus };
+
   /* Functionn to set state from the response comming from API */
   const setResponse = (data) => {
     const response = data.map((obj) => {
@@ -63,13 +63,13 @@ export default function App() {
         teamsWinProbability: obj.teamsWinProbability
       };
     });
-    setState(response);
+    setMatchSchedule(response);
   };
 
   /* fetching the data from API using match status and match type as dependencies in use effect */
-
+  
   useEffect(() => {
-    fetch("https://api.devcdc.com/cricket",
+    fetch(API,
       {
         method: "Post",
         headers: { "Content-Type": "application/json" },
@@ -101,7 +101,7 @@ export default function App() {
                   align-items: center min-w-fit p-2 
                   sm:p-6"
       >
-        {state.map((data, index) => (
+        {matchSchedule.map((data, index) => (
           <div className="flex flex-col 
               justify-center align: center
               gap-5 p-2"

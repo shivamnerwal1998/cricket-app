@@ -1,7 +1,7 @@
-import venueIcon from "./assets/icons8-location-48.png"
-import bellIcon from "./assets/bellIcon.png"
-import loosingTeam from "./assets/loosingTeam.png"
-import winningTeam from "./assets/winningTeam.png"
+import venueIcon from "../assets/icons8-location-48.png"
+import bellIcon from "../assets/bellIcon.png"
+import loosingTeam from "../assets/loosingTeam.png"
+import winningTeam from "../assets/winningTeam.png"
 
 export default function MatchCard({
   matchType,
